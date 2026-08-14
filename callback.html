@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TikTok Authorization</title>
+<style>
+body{font-family:sans-serif;max-width:640px;margin:60px auto;padding:0 16px;line-height:1.6;color:#222;text-align:center}
+.code-box{background:#f0f0f0;border-radius:8px;padding:16px;font-family:monospace;font-size:16px;word-break:break-all;margin:20px 0;user-select:all}
+.err{color:#c0392b}
+</style>
+</head>
+<body>
+<h1>TikTok Authorization</h1>
+<div id="content">Reading response...</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
+const state = params.get("state");
+const error = params.get("error");
+const el = document.getElementById("content");
+
+if (error) {
+  el.innerHTML = '<p class="err">Authorization failed: ' + error + '</p>';
+} else if (code) {
+  el.innerHTML =
+    '<p>Copy this code and send it back:</p>' +
+    '<div class="code-box">' + code + '</div>' +
+    '<p style="font-size:13px;color:#666">state: ' + state + '</p>';
+} else {
+  el.innerHTML = '<p class="err">No code found in the URL.</p>';
+}
+</script>
+</body>
+</html>
