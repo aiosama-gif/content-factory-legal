@@ -20,15 +20,34 @@ const state = params.get("state");
 const error = params.get("error");
 const el = document.getElementById("content");
 
+function clearEl(node) {
+  while (node.firstChild) node.removeChild(node.firstChild);
+}
+
+clearEl(el);
 if (error) {
-  el.innerHTML = '<p class="err">Authorization failed: ' + error + '</p>';
+  const p = document.createElement("p");
+  p.className = "err";
+  p.textContent = "Authorization failed: " + error;
+  el.appendChild(p);
 } else if (code) {
-  el.innerHTML =
-    '<p>Copy this code and send it back:</p>' +
-    '<div class="code-box">' + code + '</div>' +
-    '<p style="font-size:13px;color:#666">state: ' + state + '</p>';
+  const p1 = document.createElement("p");
+  p1.textContent = "Copy this code and send it back:";
+  const box = document.createElement("div");
+  box.className = "code-box";
+  box.textContent = code;
+  const p2 = document.createElement("p");
+  p2.style.fontSize = "13px";
+  p2.style.color = "#666";
+  p2.textContent = "state: " + state;
+  el.appendChild(p1);
+  el.appendChild(box);
+  el.appendChild(p2);
 } else {
-  el.innerHTML = '<p class="err">No code found in the URL.</p>';
+  const p = document.createElement("p");
+  p.className = "err";
+  p.textContent = "No code found in the URL.";
+  el.appendChild(p);
 }
 </script>
 </body>
